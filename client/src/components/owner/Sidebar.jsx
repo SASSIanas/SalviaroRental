@@ -59,7 +59,7 @@ const Sidebar = () => {
                     items-center gap-2 w-full py-3 pl-4 first:mt-6 ${link.path === location.pathname ? 'bg-primary/10 text-primary' :
                          'text-gray-600'
                     }`}>
-                        <img src={link.path === location.pathname ? link.coloredIcon : link.icon } alt="car icon" />
+                        <img className='w-6 h-6' src={link.path === location.pathname ? link.coloredIcon : link.icon } alt="car icon" />
                         <span className='max-md:hidden'>{link.name}</span>
                         <div className={`${link.path === location.pathname && 'bg-primary'}
                         w-1.5 h-8 rounded-l right-0 absolute`}></div>

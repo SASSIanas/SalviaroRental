@@ -1,55 +1,73 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { assets, dummyCarData } from '../assets/assets'
+import { assets } from '../assets/assets'
 import Loader from '../components/Loader'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
-
+import axios from 'axios'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
 
 const CarDetails = () => {
+  const { id } = useParams()
+  const { cars, axios: axiosContext, pickupDate, setPickupDate, returnDate, setReturnDate, currency } = useAppContext()
+  const navigate = useNavigate()
 
+  const [car, setCar] = useState(null)
+  const [bookedDates, setBookedDates] = useState([])
+  const [showPickupCalendar, setShowPickupCalendar] = useState(false)
+  const [showReturnCalendar, setShowReturnCalendar] = useState(false)
 
-    const { id } = useParams()
+  useEffect(() => {
+    setCar(cars.find(car => car._id === id))
 
-    const { cars, axios, pickupDate, setPickupDate,currency, returnDate, setReturnDate} = useAppContext()
-
-    const navigate = useNavigate()
-    const [car, setCar] = useState(null)
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const {data} = await axios.post('/api/bookings/create',{
-                car: id,
-                pickupDate,
-                returnDate
-            })
-            if (data.success){
-                toast.success(data.message)
-                navigate('/my-bookings')
-            }else{
-                toast.error(data.message)
-            }
-        } catch (error) {
-            toast.error(data.message)
+    const fetchBookedDates = async () => {
+      try {
+        const { data } = await axios.get(`/api/bookings/${id}/unavailable-dates`)
+        if (data.success) {
+          setBookedDates(data.dates.map(d => new Date(d)))
         }
+      } catch (err) {
+        console.log(err)
+      }
     }
+    fetchBookedDates()
+  }, [cars, id])
 
-    useEffect(() => {
-        setCar(cars.find(car => car._id === id))
-    }, [cars,id])
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const { data } = await axiosContext.post('/api/bookings/create', {
+        car: id,
+        pickupDate,
+        returnDate
+      })
+      if (data.success) {
+        toast.success(data.message)
+        navigate('/my-bookings')
+        setPickupDate('')
+        setReturnDate('')
+       
+      } else {
+        toast.error(data.message)
+      }
+    } catch (err) {
+      toast.error(err.message)
+    }
+  }
 
+  if (!car) return <Loader />
 
-    return car ? (
-        <div className='px-6 md:px-16 lg:px-24 xl:px-32 mt-16'>
-            <button onClick={() => navigate(-1)} className='flex items-center gap-2 mb-6 text-gray-500 cursor-pointer'>
-                <img src={assets.arrow_icon} alt="" className='rotate-180 opacity-65' />
-                Back to all cars
-            </button>
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12'>
-                {/*left car image & details*/}
-                <div className='lg:col-span-2'>
-                    <img src={car.image} alt="" className='w-full h-auto md:max-h-100 object-cover rounded-xl mb-6 shadow-md' />
+  return (
+    <div className='px-6 md:px-16 lg:px-24 xl:px-32 mt-16'>
+      <button onClick={() => navigate(-1)} className='flex items-center gap-2 mb-6 text-gray-500 cursor-pointer'>
+        <img src={assets.arrow_icon} alt="" className='rotate-180 opacity-65' />
+        Back to all cars
+      </button>
+
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12'>
+        <div className='lg:col-span-2'>
+                    <img src={car.image} alt="" className='w-full max-h-60 md:max-h-100 object-cover rounded-xl mb-6 shadow-md' />
                     <div className='space-y-6'>
                         <div>
                             <h1 className='text-3xl font-bold'>{car.brand} {car.model}</h1>
@@ -96,36 +114,85 @@ const CarDetails = () => {
                         </div>
                     </div>
                 </div>
-                {/*right booking form*/}
-                <form onSubmit={handleSubmit} className='shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500'>
+        {/* Right: booking form */}
+        <form onSubmit={handleSubmit} className='shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500'>
+          <p className='flex items-center justify-between text-2xl text-gray-800 font-semibold'>
+            {currency}{car.pricePerDay}<span className='text-base text-gray-400 font-normal'> per day</span>
+          </p>
+          <hr className='border-borderColor my-6' />
 
-                    <p className='flex items-center justify-between text-2xl text-gray-800 font-semibold'
-                    >{currency}{car.pricePerDay}<span className='text-base text-gray-400 font-normal'> per day</span></p>
+          {/* Pickup Date */}
+          {/* ---------------- Pickup Date ---------------- */}
+<div className='flex flex-col gap-2'>
+  <label>Pickup Date</label>
+  <button
+    type="button"
+    onClick={() => setShowPickupCalendar(!showPickupCalendar)}
+    className='border border-borderColor px-3 py-2 rounded-lg w-full text-left'
+  >
+    {pickupDate ? pickupDate : 'Select Pickup Date'}
+  </button>
+  {showPickupCalendar && (
+    <DatePicker
+      selected={pickupDate ? new Date(pickupDate) : null}
+      onChange={(date) => {
+        const d = new Date(date)
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset()) // ✅ تصلح UTC
+        setPickupDate(d.toISOString().split('T')[0])
+        setShowPickupCalendar(false)
+      }}
+      inline
+      excludeDates={bookedDates}
+      dayClassName={date =>
+        bookedDates.some(d => d.toDateString() === date.toDateString())
+          ? "bg-black text-white rounded-full"
+          : ""
+      }
+      minDate={new Date()} // الحد الأدنى اليوم
+    />
+  )}
+</div>
 
-                    <hr className='border-borderColor my-6' />
+{/* ---------------- Return Date ---------------- */}
+<div className='flex flex-col gap-2'>
+  <label>Return Date</label>
+  <button
+    type="button"
+    onClick={() => setShowReturnCalendar(!showReturnCalendar)}
+    className='border border-borderColor px-3 py-2 rounded-lg w-full text-left'
+  >
+    {returnDate ? returnDate : 'Select Return Date'}
+  </button>
+  {showReturnCalendar && (
+    <DatePicker
+      selected={returnDate ? new Date(returnDate) : null}
+      onChange={(date) => {
+        const d = new Date(date)
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset()) // ✅ تصلح UTC
+        setReturnDate(d.toISOString().split('T')[0])
+        setShowReturnCalendar(false)
+      }}
+      inline
+      excludeDates={bookedDates}
+      dayClassName={date =>
+        bookedDates.some(d => d.toDateString() === date.toDateString())
+          ? "bg-black text-white rounded-full"
+          : ""
+      }
+      minDate={new Date()} // الحد الأدنى اليوم
+    />
+  )}
+</div>
 
-                    <div className='flex flex-col gap-2'>
-                        <label htmlFor="pickup-date">Pickup Date</label>
-                        <input value={pickupDate} onChange={(e)=>setPickupDate(e.target.value)}
-                        type="date" className='border border-borderColor px-3 py-2 rounded-lg'
-                            required id='pickup-date' min={new Date().toISOString().split('T')[0]} />
-                    </div>
 
-                    <div className='flex flex-col gap-2'>
-                        <label htmlFor="return-date">Return Date</label>
-                        <input value={returnDate} onChange={(e)=>setReturnDate(e.target.value)}
-                        type="date" className='border border-borderColor px-3 py-2 rounded-lg'
-                            required id='return-date' />
-                    </div>
-
-                    <button className='w-full bg-primary hover:bg-primary-dull
-                    transition-all py-3 font-medium text-white rounded-xl cursor-pointer'>Book Now</button>
-                    <p className='text-center text-sm'>No credit card required to reserve</p>
-                </form>
-
-            </div>
-        </div>
-    ) : <Loader />
+          <button className='w-full bg-primary hover:bg-primary-dull transition-all py-3 font-medium text-white rounded-xl cursor-pointer'>
+            Book Now
+          </button>
+          <p className='text-center text-sm'>No credit card required to reserve</p>
+        </form>
+      </div>
+    </div>
+  )
 }
 
 export default CarDetails

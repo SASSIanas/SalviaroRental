@@ -5,9 +5,10 @@ import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
 function Navbar() {
 
-    const { setShowLogin, user, logout, isOwner, axios, setIsOwner } = useAppContext()
+    const { setShowLogin, user, logout, isOwner, axios, setIsOwner,input,setInput } = useAppContext()
 
     const location = useLocation()
+    
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
 
@@ -45,9 +46,9 @@ function Navbar() {
                     </Link>
                 ))}
 
-                <div className='hidden lg:flex items-center text-sm gap-2 border
+                <div onClick={()=>navigate('/cars')} className='hidden lg:flex items-center text-sm gap-2 border
             border-borderColor px-3 rounded-full max-w-56'>
-                    <input type="text" className='py-1.5 w-full bg-transparent
+                    <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" className='py-1.5 w-full bg-transparent
                 outline-none placeholder-gray-500' placeholder='Search products' />
                     <img src={assets.search_icon} alt="search" />
                 </div>

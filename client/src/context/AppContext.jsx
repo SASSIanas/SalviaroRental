@@ -13,6 +13,7 @@ export const AppProvider = ({ children }) => {
     const currency = import.meta.env.VITE_CURRENCY
     const [token, setToken] = useState(null)
     const [user, setUser] = useState(null)
+    const [input, setInput] = useState('')
     const [isOwner, setIsOwner] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
     const [pickupDate, setPickupDate] = useState('')
@@ -84,6 +85,7 @@ export const AppProvider = ({ children }) => {
         logout,
         fetchCars,
         cars, setCars,
+        input, setInput,
         pickupDate, setPickupDate,
         returnDate, setReturnDate,
     }

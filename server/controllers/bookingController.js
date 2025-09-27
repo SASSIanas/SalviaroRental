@@ -4,13 +4,16 @@ import Car from "../models/Car.js";
 
 // function to chek availavility of car for a given date
 const checkAvailability = async (car, pickupDate, returnDate) => {
-    const bookings = await Booking.find({
-        car,
-        pickupDate: { $lte: returnDate },
-        returnDate: { $gte: pickupDate },
-    })
-    return bookings.length === 0;
-}
+  const bookings = await Booking.find({
+    car,
+    status: { $in: ["pending", "confirmed"] }, // ✅ مهم بزاف
+    pickupDate: { $lte: returnDate },
+    returnDate: { $gte: pickupDate },
+  });
+
+  return bookings.length === 0;
+};
+
 
 // api to check availability of cars for the given date and location
 export const checkAvailabilityOfCar = async (req, res) => {
@@ -34,6 +37,37 @@ export const checkAvailabilityOfCar = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
+// api to get unavailable dates for a specific car
+export const getUnavailableDates = async (req, res) => {
+  try {
+    const { carId } = req.params;
+
+    // نجيب غير bookings لي status ديالها pending أو confirmed (canceled ما يبانش)
+    const bookings = await Booking.find({
+      car: carId,
+      status: { $in: ["pending", "confirmed"] }
+    });
+
+    let dates = [];
+
+    bookings.forEach(b => {
+      const start = new Date(b.pickupDate);
+      const end = new Date(b.returnDate);
+
+      let d = new Date(start);
+      while (d <= end) {
+        dates.push(new Date(d));
+        d.setDate(d.getDate() + 1);
+      }
+    });
+
+    res.json({ success: true, dates });
+
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // api to create booking
 export const createBooking = async (req, res) => {
