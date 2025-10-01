@@ -78,7 +78,8 @@ const MyBookings = () => {
                 <img src={assets.location_icon_colored} alt="" className='w-4 h-4 mt-1' />
                 <div>
                   <p className='text-gray-500'>Pick-up Location</p>
-                  <p>{booking.car.location}</p>
+                  <p>{booking.car.location} | {booking.car.rentalAddress}</p>
+                  <p></p>
                 </div>
               </div>
             </div>

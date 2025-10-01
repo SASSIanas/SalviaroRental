@@ -39,23 +39,26 @@ function Navbar() {
         max-sm:border-t border-borderColor right-0 flex flex-col sm:flex-row
         items-start sm:items-center gap-4 sm:gap-8 max-sm:p-4 transition-all
         duration-300 z-50 ${location.pathname === "/" ? "bg-light " : "bg-white"}
-        ${open ? "max-sm:translate-x-0" : "max-sm:translate-x-full"}`}>
+        ${open ? "max-sm:translate-x-0" : "max-sm:translate-x-full"} 
+        
+        `}>
                 {menuLinks.map((link, index) => (
-                    <Link onClick={()=>setOpen(false)} key={index} to={link.path}>
+                    <Link onClick={()=>setOpen(false)} key={index} to={link.path} >
                         {link.name}
                     </Link>
                 ))}
 
-                <div onClick={()=>navigate('/cars')} className='hidden lg:flex items-center text-sm gap-2 border
-            border-borderColor px-3 rounded-full max-w-56'>
+                <div onClick={()=>navigate('/cars')} className={`hidden duration-200 ${(location.pathname === '/cars' && input !== '') ? '-translate-y-20 hidden ':''} lg:flex items-center text-sm gap-2 border
+            border-borderColor px-3 rounded-full max-w-56`}>
                     <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" className='py-1.5 w-full bg-transparent
                 outline-none placeholder-gray-500' placeholder='Search products' />
                     <img src={assets.search_icon} alt="search" />
                 </div>
 
                 <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
-                    <button onClick={() => isOwner ? navigate('/owner') : changeRole()} className='cursor-pointer'>
-                        {isOwner ? 'Dashboard' : 'List cars'}</button>
+                    {isOwner && (
+    <Link to="/owner">Dashboard</Link>
+)}
                     <button onClick={() => { user ? logout() : setShowLogin(true) }} className='cursor-pointer px-8 py-2 bg-primary
                 hover:bg-primary-dull transition-all text-white rounded-lg'>{user? 'Loggout' : 'Login'}</button>
                 </div>

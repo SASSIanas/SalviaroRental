@@ -48,7 +48,9 @@ const Cars = () => {
       setFilteredCars(data.availableCars)
       if (data.availableCars.length === 0) {
 
-        toast('No cars available')
+        toast.error('No cars available')
+      }else{
+        toast.success(`cars available on ${pickupLocation}`)
       }
       return null
     }

@@ -67,53 +67,60 @@ const CarDetails = () => {
 
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12'>
         <div className='lg:col-span-2'>
-                    <img src={car.image} alt="" className='w-full max-h-60 md:max-h-100 object-cover rounded-xl mb-6 shadow-md' />
-                    <div className='space-y-6'>
-                        <div>
-                            <h1 className='text-3xl font-bold'>{car.brand} {car.model}</h1>
-                            <p className='text-gray-500 text-lg'>{car.category}•{car.year}
-                            </p>
-                        </div>
-                        <hr className='border-borderColor my-6' />
+          <img src={car.image} alt="" className='w-full max-h-60 md:max-h-100 object-cover rounded-xl mb-6 shadow-md' />
+          <div className='space-y-6'>
+            <div>
+              <h1 className='text-3xl font-bold'>{car.brand} {car.model}</h1>
+              <p className='text-gray-500 text-lg'>{car.category}•{car.year}</p>
+              {/* عرض اسم شركة التأجير */}
+              {car.rentalBusinessName && (
+                <p className='text-primary text-sm mt-1'>Provided by: {car.rentalBusinessName}</p>
+              )}
+              {car.rentalAddress && (
+                <p className='text-gray-500 text-sm mt-1 flex gap-2 items-start'><img src={assets.location_icon} className='w-3' alt="" /> {car.location} | {car.rentalAddress}</p>
+              )}
+            </div>
+            <hr className='border-borderColor my-6' />
 
-                        <div className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
-                            {[
-                                { icon: assets.users_icon, text: `${car.seating_capacity}` },
-                                { icon: assets.fuel_icon, text: car.fuel_type },
-                                { icon: assets.car_icon, text: car.transmission },
-                                { icon: assets.location_icon, text: car.location },
-                            ].map(({ icon, text }) => (
-                                <div key={text} className='flex flex-col items-center bg-light p-4 rounded-lg'>
-                                    <img src={icon} alt="" className='h-5 mb-2' />
-                                    {text}
-                                </div>
-                            ))}
-                        </div>
-                        {/* Description */}
-                        <div>
-                            <h1 className='text-xl font-medium mb-3'>Description</h1>
-                            <p className='text-gray-500'>{car.description}</p>
-                        </div>
-                        {/* Features */}
-                        <div>
-                            <h1 className='text-xl font-medium mb-3'>Festured</h1>
-                            <ul className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
-                                {
-                                    ["360 Camera",
-                                        "Bluetooth",
-                                        "Gps",
-                                        "Heated Seats",
-                                        "Rear View Mirror"].map((item) => (
-                                            <li key={item}>
-                                                <img src={assets.check_icon} className='h-4 mr-2' alt="" />
-                                                {item}
-                                            </li>
-                                        ))
-                                }
-                            </ul>
-                        </div>
-                    </div>
+            <div className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
+              {[
+                { icon: assets.users_icon, text: `${car.seating_capacity}` },
+                { icon: assets.fuel_icon, text: car.fuel_type },
+                { icon: assets.car_icon, text: car.transmission },
+                { icon: assets.location_icon, text: car.location },
+              ].map(({ icon, text }) => (
+                <div key={text} className='flex flex-col items-center bg-light p-4 rounded-lg'>
+                  <img src={icon} alt="" className='h-5 mb-2' />
+                  {text}
                 </div>
+              ))}
+            </div>
+            
+            {/* Description */}
+            <div>
+              <h1 className='text-xl font-medium mb-3'>Description</h1>
+              <p className='text-gray-500'>{car.description}</p>
+            </div>
+            
+            {/* Features من الخلفية */}
+            <div>
+              <h1 className='text-xl font-medium mb-3'>Features</h1>
+              <ul className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+                {car.features && car.features.length > 0 ? (
+                  car.features.map((feature, index) => (
+                    <li key={index} className='flex items-center'>
+                      <img src={assets.check_icon} className='h-4 mr-2' alt="" />
+                      {feature}
+                    </li>
+                  ))
+                ) : (
+                  <li className='text-gray-500'>No features available</li>
+                )}
+              </ul>
+            </div>
+          </div>
+        </div>
+        
         {/* Right: booking form */}
         <form onSubmit={handleSubmit} className='shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500'>
           <p className='flex items-center justify-between text-2xl text-gray-800 font-semibold'>
@@ -122,68 +129,66 @@ const CarDetails = () => {
           <hr className='border-borderColor my-6' />
 
           {/* Pickup Date */}
-          {/* ---------------- Pickup Date ---------------- */}
-<div className='flex flex-col gap-2'>
-  <label>Pickup Date</label>
-  <button
-    type="button"
-    onClick={() => setShowPickupCalendar(!showPickupCalendar)}
-    className='border border-borderColor px-3 py-2 rounded-lg w-full text-left'
-  >
-    {pickupDate ? pickupDate : 'Select Pickup Date'}
-  </button>
-  {showPickupCalendar && (
-    <DatePicker
-      selected={pickupDate ? new Date(pickupDate) : null}
-      onChange={(date) => {
-        const d = new Date(date)
-        d.setMinutes(d.getMinutes() - d.getTimezoneOffset()) // ✅ تصلح UTC
-        setPickupDate(d.toISOString().split('T')[0])
-        setShowPickupCalendar(false)
-      }}
-      inline
-      excludeDates={bookedDates}
-      dayClassName={date =>
-        bookedDates.some(d => d.toDateString() === date.toDateString())
-          ? "bg-black text-white rounded-full"
-          : ""
-      }
-      minDate={new Date()} // الحد الأدنى اليوم
-    />
-  )}
-</div>
+          <div className='flex flex-col gap-2'>
+            <label>Pickup Date</label>
+            <button
+              type="button"
+              onClick={() => setShowPickupCalendar(!showPickupCalendar)}
+              className='border border-borderColor px-3 py-2 rounded-lg w-full text-left'
+            >
+              {pickupDate ? pickupDate : 'Select Pickup Date'}
+            </button>
+            {showPickupCalendar && (
+              <DatePicker
+                selected={pickupDate ? new Date(pickupDate) : null}
+                onChange={(date) => {
+                  const d = new Date(date)
+                  d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
+                  setPickupDate(d.toISOString().split('T')[0])
+                  setShowPickupCalendar(false)
+                }}
+                inline
+                excludeDates={bookedDates}
+                dayClassName={date =>
+                  bookedDates.some(d => d.toDateString() === date.toDateString())
+                    ? "bg-black text-white rounded-full"
+                    : ""
+                }
+                minDate={new Date()}
+              />
+            )}
+          </div>
 
-{/* ---------------- Return Date ---------------- */}
-<div className='flex flex-col gap-2'>
-  <label>Return Date</label>
-  <button
-    type="button"
-    onClick={() => setShowReturnCalendar(!showReturnCalendar)}
-    className='border border-borderColor px-3 py-2 rounded-lg w-full text-left'
-  >
-    {returnDate ? returnDate : 'Select Return Date'}
-  </button>
-  {showReturnCalendar && (
-    <DatePicker
-      selected={returnDate ? new Date(returnDate) : null}
-      onChange={(date) => {
-        const d = new Date(date)
-        d.setMinutes(d.getMinutes() - d.getTimezoneOffset()) // ✅ تصلح UTC
-        setReturnDate(d.toISOString().split('T')[0])
-        setShowReturnCalendar(false)
-      }}
-      inline
-      excludeDates={bookedDates}
-      dayClassName={date =>
-        bookedDates.some(d => d.toDateString() === date.toDateString())
-          ? "bg-black text-white rounded-full"
-          : ""
-      }
-      minDate={new Date()} // الحد الأدنى اليوم
-    />
-  )}
-</div>
-
+          {/* Return Date */}
+          <div className='flex flex-col gap-2'>
+            <label>Return Date</label>
+            <button
+              type="button"
+              onClick={() => setShowReturnCalendar(!showReturnCalendar)}
+              className='border border-borderColor px-3 py-2 rounded-lg w-full text-left'
+            >
+              {returnDate ? returnDate : 'Select Return Date'}
+            </button>
+            {showReturnCalendar && (
+              <DatePicker
+                selected={returnDate ? new Date(returnDate) : null}
+                onChange={(date) => {
+                  const d = new Date(date)
+                  d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
+                  setReturnDate(d.toISOString().split('T')[0])
+                  setShowReturnCalendar(false)
+                }}
+                inline
+                excludeDates={bookedDates}
+                dayClassName={date =>
+                  bookedDates.some(d => d.toDateString() === date.toDateString())
+                    ? "bg-black text-white rounded-full"
+                    : ""
+                }
+                minDate={new Date()}
+              />
+            )}
+          </div>
 
           <button className='w-full bg-primary hover:bg-primary-dull transition-all py-3 font-medium text-white rounded-xl cursor-pointer'>
             Book Now

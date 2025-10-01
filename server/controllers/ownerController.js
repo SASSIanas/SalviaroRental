@@ -19,12 +19,16 @@ export const changeRoleToOwner = async (req, res) => {
 
 // api to list car
 
+// api to list car
 export const addCar = async (req, res) => {
     try {
         const { _id } = req.user;
         let car = JSON.parse(req.body.carData);
         const imageFile = req.file;
 
+        // Get user to include rental business info
+        const user = await User.findById(_id);
+        
         // upload image to imagekit
         const fileBuffer = fs.readFileSync(imageFile.path)
         const response = await imagekit.upload({
@@ -44,7 +48,15 @@ export const addCar = async (req, res) => {
         });
 
         const image = optimizedImageUrl;
-        await Car.create({ ...car, owner: _id, image })
+        
+        // Include rental business name and address
+        await Car.create({ 
+            ...car, 
+            owner: _id, 
+            image,
+            rentalBusinessName: user.rentalBusinessName || 'Private Owner',
+            rentalAddress: user.rentalAddress || '' // إضافة العنوان
+        })
 
         res.json({ success: true, message: 'Car Added' })
 
@@ -53,7 +65,6 @@ export const addCar = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
-
 // api to list owner car
 
 export const getOwnerCars = async (req, res) => {

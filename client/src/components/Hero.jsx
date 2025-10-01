@@ -5,24 +5,32 @@ import { useAppContext } from '../context/AppContext'
 const Hero = () => {
 
     const [pickupLocation,setPickupLocation] = useState('')
+    const [isAnimating, setIsAnimating] = useState(false)
 
     const {pickupDate, setPickupDate, returnDate, setReturnDate, navigate} = useAppContext()
 
-    const handleSearch = (e) =>{
+    const handleSearch = (e) => {
         e.preventDefault()
-        navigate('/cars?pickupLocation=' + pickupLocation + '&pickupDate=' + pickupDate + '&returnDate=' + returnDate)
+        
+        // Start animation
+        setIsAnimating(true)
+        
+        // Navigate after animation completes
+        setTimeout(() => {
+            navigate('/cars?pickupLocation=' + pickupLocation + '&pickupDate=' + pickupDate + '&returnDate=' + returnDate)
+        }, 900) // Animation duration
     }
 
   return (
-    <div className=' flex flex-col items-center justify-center gap-14
-    bg-light text-center'>
+    <div className='flex flex-col items-center justify-center gap-10 md:gap-12
+    bg-light text-center overflow-hidden'>
         <h1 className='text-4xl md:text-5xl Aspect p-4'>Luxury cars on Rent</h1>
 
         <form onSubmit={handleSearch} className='flex flex-col md:flex-row items-start md:items-center
         justify-between p-6 rounded-lg md:rounded-full w-full max-w-80 md:max-w-200
         bg-white shadow-[0px_8px_20px_rgba(0,0,0,0.1)]'>
             <div className='flex flex-col md:flex-row items-start md:items-center
-            gap-10 min-md:ml-8'>
+            gap-4 md:gap-10 min-md:ml-8'>
                 <div className='flex flex-col items-start gap-2'>
                     <select required value={pickupLocation} onChange={
                         (e)=>setPickupLocation(e.target.value)}>
@@ -52,7 +60,29 @@ const Hero = () => {
 
         </form>
 
-        <img src={assets.main_car} alt="car" className='max-h-74'/>
+        <img 
+            src={assets.main_car} 
+            alt="car" 
+            className='max-h-74'
+            style={{
+                transform: isAnimating ? 'translateX(150vw)' : 'translateX(0)',
+                animation: isAnimating ? 'carDrive 1.5s ease-in-out forwards' : 'none',
+            }}
+        />
+        
+        <style>{`
+            @keyframes carDrive {
+                0% {
+                    transform: translateX(0);
+                }
+                20% {
+                    transform: translateX(-30px);
+                }
+                100% {
+                    transform: translateX(150vw);
+                }
+            }
+        `}</style>
     </div>
   )
 }

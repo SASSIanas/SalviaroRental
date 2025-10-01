@@ -10,12 +10,20 @@ const generateToken = (userId)=>{
 }
 
 // register user
+// register user
 export const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body
+        const { name, email, password, role, rentalBusinessName, rentalAddress } = req.body
 
         if (!name || !email || !password || password.length < 8) {
             return res.json({ success: false, message: 'fill all the fields' })
+        }
+
+        // If registering as owner, validate business fields
+        if (role === 'owner') {
+            if (!rentalBusinessName || !rentalAddress) {
+                return res.json({ success: false, message: 'Rental business name and address are required for owners' })
+            }
         }
 
         const userExists = await User.findOne({ email })
@@ -24,7 +32,20 @@ export const registerUser = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-        const user = await User.create({name, email, password: hashedPassword})
+        const userData = {
+            name, 
+            email, 
+            password: hashedPassword,
+            role: role || 'user'
+        }
+
+        // Add rental business info if registering as owner
+        if (role === 'owner') {
+            userData.rentalBusinessName = rentalBusinessName
+            userData.rentalAddress = rentalAddress
+        }
+
+        const user = await User.create(userData)
         const token = generateToken(user._id.toString())
         res.json({success: true, token})
 

@@ -1,7 +1,6 @@
 import mongoose, { Types } from "mongoose";
 const {ObjectId} = mongoose.Schema.Types
 
-
 const carSchema = new mongoose.Schema({
     owner: {type: ObjectId, ref: 'User'},
     brand: {type: String, required: true},
@@ -16,6 +15,11 @@ const carSchema = new mongoose.Schema({
     location: {type: String, required: true},
     description: {type: String, required: true},
     isAvaliable: {type: Boolean, default: true},
+    // Add features array
+    features: [{type: String}],
+    // Add rental business info for the car
+    rentalBusinessName: {type: String, default: ''},
+    rentalAddress: {type: String, default: ''}, // إضافة هذا الحقل
 },{timestamps: true})
 
 const Car = mongoose.model('Car', carSchema)

@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
     password: {type: String , required: true},
     role: {type: String , enum:['owner','user'],default: 'user'},
     image: {type: String , default: ''},
+    // Add these new fields for rental business
+    rentalBusinessName: {type: String , default: ''},
+    rentalAddress: {type: String , default: ''},
 },{timestamps:true})
 
 const User = mongoose.model('User',userSchema)
