@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { assets } from '../assets/assets'
+import { Link } from 'react-router'
+
 
 const Footer = () => {
+
+    const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", 
+    });
+  };
+
     return (
         <div className='px-6 md:px-16 lg:px-24 xl:px-32 mt-60 text-sm text-gray-500'>
 
@@ -33,10 +43,11 @@ const Footer = () => {
                     <h2 className='text-base font-medium text-gray-800 
                     uppercase'>Quick Links</h2>
                     <ul className='mt-3 flex flex-col gap-1.5'>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Browse Cars</a></li>
-                        <li><a href="#">List Your Car</a></li>
-                        <li><a href="#">About Us</a></li>
+                        <li><Link onClick={handleScrollToTop} to={'/'}>Home</Link></li>
+                        <li><Link onClick={handleScrollToTop} to={'/cars'}>Browse Cars</Link></li>
+                        <li><Link onClick={handleScrollToTop} to={'/contact-us'}>Contact Us</Link></li>
+                        <li><Link onClick={handleScrollToTop} to={'/about-us'}>About Us</Link></li>
+                        
                     </ul>
                 </div>
 
@@ -44,10 +55,10 @@ const Footer = () => {
                     <h2 className='text-base font-medium text-gray-800 
                     uppercase'>Resources</h2>
                     <ul className='mt-3 flex flex-col gap-1.5'>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Insurance</a></li>
+                        <li><Link onClick={handleScrollToTop} to={'/help-center'}>Help Center</Link></li>
+                        <li><Link onClick={handleScrollToTop} to={'/terms-of-service'}>Terms of Service</Link></li>
+                        <li><Link onClick={handleScrollToTop} to={'/privacy-policy'}>Privacy Policy</Link></li>
+                        <li><Link onClick={handleScrollToTop} to={'/insurance'}>Insurance</Link></li>
                     </ul>
                 </div>
 

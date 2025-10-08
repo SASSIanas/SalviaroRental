@@ -40,6 +40,9 @@ import car_image1 from "./car_image1.png"
 import car_image2 from "./car_image2.png"
 import car_image3 from "./car_image3.png"
 import car_image4 from "./car_image4.png"
+import raktma from './raktma.jpg'
+import tiwtiw from './tiwtiw.jpg'
+import tswira1 from './tswira1.jpg'
 
 export const cityList = [
   "Agadir",
@@ -129,6 +132,9 @@ export const assets = {
     location_icon,
     fuel_icon,
     addIcon,
+    tiwtiw,
+    tswira1,
+    raktma,
     carIcon,
     carIconColored,
     dashboardIcon,
@@ -162,6 +168,7 @@ export const assets = {
 export const menuLinks = [
     { name: "Home", path: "/" },
     { name: "Cars", path: "/cars" },
+    { name: "Contact Us", path: "/contact-us" },
     { name: "My Bookings", path: "/my-bookings" },
     
 ]

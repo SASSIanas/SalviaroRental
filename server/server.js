@@ -5,6 +5,8 @@ import connectDB from './configs/db.js';
 import userRouter from './routes/userRoutes.js';
 import ownerRouter from './routes/ownerRoutes.js';
 import bookingRouer from './routes/bookingRoutes.js';
+import contactRouter from './routes/contactRouter.js';
+
 
 // instalize ecpress app
 const app = express()
@@ -20,6 +22,8 @@ app.get('/',(req,res)=> res.send("Server is running"))
 app.use('/api/user', userRouter)
 app.use('/api/owner', ownerRouter)
 app.use('/api/bookings', bookingRouer)
+app.use('/api/contact', contactRouter)
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=> console.log(`Server running on port ${PORT}`));

@@ -14,6 +14,12 @@ import ManageBookings from './pages/owner/ManageBookings'
 import Login from './components/Login'
 import { Toaster } from 'react-hot-toast'
 import { useAppContext } from './context/AppContext'
+import AboutUs from './pages/AboutUs'
+import ContactUs from './pages/ContactUs'
+import HelpCenter from './pages/HelpCenter'
+import Terms from './pages/Terms'
+import Privacy from './pages/Privacy'
+import Insurance from './pages/Insurance'
 
 function App() {
   const {showLogin} = useAppContext()
@@ -30,6 +36,12 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/car-details/:id' element={<CarDetails />} />
         <Route path='/cars' element={<Cars />} />
+        <Route path='/about-us' element={<AboutUs/>} />
+        <Route path='/contact-us' element={<ContactUs/>} />
+        <Route path='/help-center' element={<HelpCenter/>} />
+        <Route path='/terms-of-service' element={<Terms/>} />
+        <Route path='/privacy-policy' element={<Privacy/>} />
+        <Route path='/insurance' element={<Insurance/>} />
         <Route path='/my-bookings' element={<MyBookings />} />
         <Route path='/owner' element={<Layout />}>
           <Route index element={<Dashboard/>}/>
