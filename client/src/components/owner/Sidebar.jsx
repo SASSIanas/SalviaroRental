@@ -36,7 +36,7 @@ const Sidebar = () => {
             <div className='group relative'>
                 <label htmlFor="image">
                     <img src={image ? URL.createObjectURL(image) : user?.image ||
-                        "https://tse4.mm.bing.net/th/id/OIP.2ZXXKN7zakCiYeNrq5-b_gHaHa?cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3"
+                        assets.testimonial_image_1
                     } alt="" className='h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto'/>
                     <input type="file" id='image' accept='image/*' hidden onChange={e => setImage(e.target.files[0])} />
                     <div className='absolute hidden top-0 right-0 left-0 bottom-0

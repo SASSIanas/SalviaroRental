@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 
 export const AppContext = createContext();
+export const backendUrl = import.meta.env.VITE_BASE_URL
 
 export const AppProvider = ({ children }) => {
 
@@ -21,6 +22,8 @@ export const AppProvider = ({ children }) => {
     const [cars, setCars] = useState([])
 
     // function to check if user is logged in
+
+    
 
     const fetchUser = async () => {
         try {
@@ -82,7 +85,7 @@ export const AppProvider = ({ children }) => {
         isOwner, setIsOwner,
         fetchUser,
         showLogin, setShowLogin,
-        logout,
+        logout,backendUrl,
         fetchCars,
         cars, setCars,
         input, setInput,

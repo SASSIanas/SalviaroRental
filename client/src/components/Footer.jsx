@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { assets } from '../assets/assets'
 import { Link } from 'react-router'
+import { BadgeX, Instagram, LucideYoutube, Phone, PhoneCall, PhoneIcon, Twitter, X, XIcon, Youtube, YoutubeIcon } from 'lucide-react';
 
 
 const Footer = () => {
@@ -24,18 +25,18 @@ const Footer = () => {
                     and everyday vehicles for all your driving needs.
                     </p>
                     <div className='flex items-center gap-3 mt-6'>
-                        <a href="#"><img src={assets.facebook_logo} 
-                        className='w-5 h-5'
-                        alt="" /></a>
-                        <a href="#"><img src={assets.instagram_logo} 
-                        className='w-5 h-5'
-                        alt="" /></a>
-                        <a href="#"><img src={assets.twitter_logo} 
-                        className='w-5 h-5'
-                        alt="" /></a>
-                        <a href="#"><img src={assets.gmail_logo} 
-                        className='w-5 h-5'
-                        alt="" /></a>
+                        <Link to="https://www.instagram.com/salviaro_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target='_blank'>
+                        <Instagram className='w-5 h-5' alt="" />
+                        </Link>
+
+                        <Link to="https://x.com/SALVIAROautos" target='_blank'>
+                        <Twitter className='w-5 h-5' alt="" />
+                        </Link>
+
+                        <Link to="http://www.youtube.com/@SALVIAROAUTOS" target='_blank'>
+                        <Youtube className='w-5 h-5' alt="" />
+                        </Link>
+
                     </div>
                 </div>
 
@@ -45,7 +46,7 @@ const Footer = () => {
                     <ul className='mt-3 flex flex-col gap-1.5'>
                         <li><Link onClick={handleScrollToTop} to={'/'}>Home</Link></li>
                         <li><Link onClick={handleScrollToTop} to={'/cars'}>Browse Cars</Link></li>
-                        <li><Link onClick={handleScrollToTop} to={'/contact-us'}>Contact Us</Link></li>
+                        <li><Link onClick={handleScrollToTop} to={'/my-bookings'}>My Bookings</Link></li>
                         <li><Link onClick={handleScrollToTop} to={'/about-us'}>About Us</Link></li>
                         
                     </ul>
@@ -66,11 +67,10 @@ const Footer = () => {
                     <h2 className='text-base font-medium text-gray-800 
                     uppercase'>Contact</h2>
                     <ul className='mt-3 flex flex-col gap-1.5'>
-                        <li>1234 Luxury Drive</li>
-                        <li>San Francisco, CA 94107</li>
-                        <li>+1 234 567890</li>
-                        <li>info</li>
-                        <li>info@example.com</li>
+                        <li>salviaro.autos@gmail.com</li>
+                        <li>+212 699272226</li>
+                        <li>+212 602867321</li>
+                        <li><Link onClick={handleScrollToTop} to={'/contact-us'}>Contact Us</Link></li>
                     </ul>
                 </div>
 
@@ -78,13 +78,6 @@ const Footer = () => {
 
             <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
                 <p>© {new Date().getFullYear()} <a href="https://prebuiltui.com">salviaro.autos</a>. All rights reserved.</p>
-                <ul className='flex items-center gap-4'>
-                    <li><a href="#">Privacy</a></li>
-                    <li>|</li>
-                    <li><a href="#">Terms</a></li>
-                    <li>|</li>
-                    <li><a href="#">Cookies</a></li>
-                </ul>
             </div>
         </div>
     )

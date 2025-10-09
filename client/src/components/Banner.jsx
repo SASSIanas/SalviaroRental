@@ -34,7 +34,7 @@ With SALVIARO, you’ll connect with real clients and boost your rentals —
 Grow your visibility, grow your business!</p>
 
             <button onClick={handlenavigate} className='px-6 py-2 bg-white hover:bg-slate-100 transition-all
-            text-primary rounded-lg text-sm  cursor-pointer'>List your car</button>
+            text-primary rounded-lg text-sm mb-8 cursor-pointer'>List your car</button>
         </div>
 
         <img src={assets.banner_car_image} alt="car" className='max-h-50 my-10'/>

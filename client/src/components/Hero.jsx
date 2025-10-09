@@ -52,7 +52,7 @@ const Hero = () => {
                 </div>
             </div>
                 <button className='flex items-center justify-center gap-1 px-9 py-3
-                max-sm:mt-4 bg-primary hover:bg-primary-dull text-white rounded-full'>
+                max-sm:mt-4 bg-primary hover:bg-primary-dull w-full sm:w-auto text-white rounded-lg md:rounded-full'>
                     <img src={assets.search_icon} alt="search"
                     className='brightness-300' />
                     search
