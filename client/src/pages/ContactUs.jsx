@@ -35,7 +35,7 @@ const ContactUs = () => {
                 <MapPin className="w-4 h-4 text-gray-600 mt-1" />
                 <div>
                   <h4 className="font-medium text-gray-900 text-sm">Address</h4>
-                  <p className="text-gray-600 text-sm">Hamria<br />Meknes, Morocco</p>
+                  <p className="text-gray-600 text-sm">Meknès, Royaume du Maroc</p>
                 </div>
               </div>
               
