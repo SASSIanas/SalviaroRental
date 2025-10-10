@@ -74,6 +74,14 @@ const Footer = () => {
                     </ul>
                 </div>
 
+                <div>
+                    <h2 className='text-base font-medium text-gray-800 
+                    uppercase'>Our Goals</h2>
+                    <ul className='mt-3 flex flex-col gap-1.5'>
+                        <Link to={'/our-goals'}>international expansion</Link>
+                    </ul>
+                </div>
+
             </div>
 
             <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>

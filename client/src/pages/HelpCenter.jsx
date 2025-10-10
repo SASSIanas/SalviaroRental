@@ -51,8 +51,8 @@ const HelpCenter = () => {
           a: 'Yes, comprehensive insurance included.'
         },
         {
-          q: 'What is included in the rental price?',
-          a: 'Insurance, unlimited kilometers, and taxes.'
+          q: 'What does the rental price include?',
+          a: 'Insurance, unlimited mileage depending on the company and its regulations, and taxes.'
         }
       ]
     },
@@ -62,8 +62,8 @@ const HelpCenter = () => {
       title: 'Delivery & Return',
       questions: [
         {
-          q: 'Where can I pick up the vehicle?',
-          a: 'At our locations in major cities.'
+          q: 'Where can I pick up my car? ',
+          a: "At our branches in any city in Morocco, we'll deliver it to the airport or wherever you need it. We're at your service. Your comfort is our priority."
         },
         {
           q: 'Can I return the vehicle in a different city?',
@@ -81,8 +81,8 @@ const HelpCenter = () => {
       title: 'Terms & Policies',
       questions: [
         {
-          q: 'What are the rental requirements?',
-          a: 'Minimum 21 years with valid license for 1 year.'
+          q: 'What are the rental conditions?',
+          a: 'A valid license for two years or more.'
         },
         {
           q: 'Is there limited or unlimited mileage?',
@@ -90,7 +90,7 @@ const HelpCenter = () => {
         },
         {
           q: 'How are accidents or damages handled?',
-          a: 'Contact our 24/7 support immediately.'
+          a: 'Contact the rental company owner immediately, and they will guide you through everything.'
         }
       ]
     },
@@ -101,7 +101,7 @@ const HelpCenter = () => {
       questions: [
         {
           q: 'What payment methods are available?',
-          a: 'Credit cards, debit cards, bank transfers.'
+          a: 'Immediate payment in cash at the rental company, credit cards, debit cards, and bank transfers.'
         },
         {
           q: 'Can I pay upon pickup?',
@@ -167,9 +167,9 @@ const HelpCenter = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-gray-600" />
                 <div>
-                  <p className="text-gray-600 text-sm">contact@salviaro.autos</p>
+                  <p className="text-gray-600 text-sm">salviaro.autos@gmail.com</p>
                 </div>
-                <button onClick={() => copyToClipboard('contact@salviaro.autos')} className="p-1 hover:bg-gray-100 rounded">
+                <button onClick={() => copyToClipboard('salviaro.autos@gmail.com')} className="p-1 hover:bg-gray-100 rounded">
                   <Copy className="w-3 h-3 text-gray-500" />
                 </button>
               </div>
@@ -177,9 +177,9 @@ const HelpCenter = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="w-4 h-4 text-gray-600" />
                 <div>
-                  <p className="text-gray-600 text-sm">+212 522 123 456</p>
+                  <p className="text-gray-600 text-sm">+212 602 867 321</p>
                 </div>
-                <button onClick={() => copyToClipboard('+212522123456')} className="p-1 hover:bg-gray-100 rounded">
+                <button onClick={() => copyToClipboard('+212602867321')} className="p-1 hover:bg-gray-100 rounded">
                   <Copy className="w-3 h-3 text-gray-500" />
                 </button>
               </div>

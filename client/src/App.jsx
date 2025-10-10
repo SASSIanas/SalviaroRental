@@ -20,6 +20,7 @@ import HelpCenter from './pages/HelpCenter'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
 import Insurance from './pages/Insurance'
+import OurGoals from './pages/OurGoals'
 
 function App() {
   const {showLogin} = useAppContext()
@@ -38,6 +39,7 @@ function App() {
         <Route path='/cars' element={<Cars />} />
         <Route path='/about-us' element={<AboutUs/>} />
         <Route path='/contact-us' element={<ContactUs/>} />
+        <Route path='/our-goals' element={<OurGoals/>} />
         <Route path='/help-center' element={<HelpCenter/>} />
         <Route path='/terms-of-service' element={<Terms/>} />
         <Route path='/privacy-policy' element={<Privacy/>} />
