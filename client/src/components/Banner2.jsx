@@ -12,7 +12,7 @@ const Banner2 = () => {
   }
   
   return (
-    <div className='px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800
+    <div className='px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 mb-20 bg-gradient-to-br from-gray-900 via-black to-gray-800
     w-full overflow-hidden border border-gray-700 shadow-2xl'>
 
       <div className='relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10'>
