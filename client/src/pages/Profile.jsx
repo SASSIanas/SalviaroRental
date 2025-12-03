@@ -156,7 +156,7 @@ const Profile = () => {
               <button 
                 onClick={handleImageUpload}
                 disabled={!image || imageLoading}
-                className='px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed w-max'
+                className='px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed w-max'
               >
                 {imageLoading ? 'Uploading...' : 'Update Image'}
               </button>
@@ -173,7 +173,7 @@ const Profile = () => {
               placeholder='Your full name' 
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className='border border-slate-300 px-3 py-2 rounded-lg w-80 focus:outline-none focus:ring-2 focus:ring-blue-500' 
+              className='border border-slate-300 px-3 py-2 rounded-lg w-80 focus:outline-none focus:ring-2 focus:ring-slate-500' 
             />
             <button 
               type="submit"
@@ -196,7 +196,7 @@ const Profile = () => {
                 placeholder='Enter current password' 
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                className='border border-slate-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' 
+                className='border border-slate-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500' 
               />
             </div>
             <div className='flex flex-col gap-1'>
@@ -206,7 +206,7 @@ const Profile = () => {
                 placeholder='Enter new password' 
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className='border border-slate-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' 
+                className='border border-slate-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500' 
               />
             </div>
             <div className='flex flex-col gap-1'>
@@ -216,7 +216,7 @@ const Profile = () => {
                 placeholder='Confirm new password' 
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className='border border-slate-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' 
+                className='border border-slate-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500' 
               />
             </div>
             <button 
