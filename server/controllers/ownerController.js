@@ -193,3 +193,36 @@ export const updateUserImage = async (req,res)=>{
         res.json({ success: false, message: error.message })
     }
 }
+
+// api to update business info
+export const updateBusinessInfo = async (req, res) => {
+    try {
+        const { _id } = req.user;
+        const { rentalBusinessName, rentalAddress } = req.body;
+
+        if (!rentalBusinessName) {
+            return res.json({ success: false, message: 'Business name is required' });
+        }
+
+        // Update user business info
+        await User.findByIdAndUpdate(_id, { 
+            rentalBusinessName,
+            rentalAddress 
+        });
+
+        // Update all cars belonging to this owner with new business info
+        await Car.updateMany(
+            { owner: _id },
+            { 
+                rentalBusinessName,
+                rentalAddress 
+            }
+        );
+
+        res.json({ success: true, message: 'Business information updated successfully for all your cars' });
+
+    } catch (error) {
+        console.log(error.message);
+        res.json({ success: false, message: error.message });
+    }
+}

@@ -48,7 +48,7 @@ function CarCard({car}) {
                 </div>
                 <div className='flex items-center text-sm text-muted-foreground'>
                     <img src={assets.location_icon} className='h-4 mr-2' alt="" />
-                    <span>{car.location}</span>
+                    <span className='truncate w-25'>{car.location}</span>
                 </div>
             </div>
 

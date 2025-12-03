@@ -1,18 +1,27 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import FeaturedSection from '../components/FeaturedSection'
+
 import Banner from '../components/Banner'
 import Testimonial from '../components/Testimonial'
-import ContactForm from '../components/ContactForm'
-import Title from '../components/Title'
+import FeaturedMotorcycles from '../components/FeaturedMotorcycles'
+import FeaturedYacht from '../components/FeaturedYacht'
+import FeaturedBoats from '../components/FeaturedBoats'
+import FeaturedAirplanes from '../components/FeaturedAirplanes'
+import FeaturedCars from '../components/FeaturedCars'
+import Banner2 from '../components/Banner2'
+
 
 
 const Home = () => {
   return (
     <>
-    
     <Hero/>
-    <FeaturedSection/>
+    <Banner2/>
+    <FeaturedCars/>
+    <FeaturedMotorcycles/>
+    <FeaturedYacht/>
+    <FeaturedBoats/>
+    <FeaturedAirplanes/>
     <Banner/>
     <Testimonial/>
 

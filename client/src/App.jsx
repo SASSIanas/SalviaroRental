@@ -21,6 +21,11 @@ import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
 import Insurance from './pages/Insurance'
 import OurGoals from './pages/OurGoals'
+import Settings from './pages/owner/Settings'
+import Profile from './pages/Profile'
+import Category from './pages/Category'
+import Profiles from './pages/Profiles'
+import OwnerProfile from './pages/OwnerProfile '
 
 function App() {
   const {showLogin} = useAppContext()
@@ -39,14 +44,19 @@ function App() {
         <Route path='/cars' element={<Cars />} />
         <Route path='/about-us' element={<AboutUs/>} />
         <Route path='/contact-us' element={<ContactUs/>} />
+        <Route path='/profiles' element={<Profiles />} />
+<Route path='/profiles/:ownerId' element={<OwnerProfile />} />
         <Route path='/our-goals' element={<OurGoals/>} />
         <Route path='/help-center' element={<HelpCenter/>} />
         <Route path='/terms-of-service' element={<Terms/>} />
+        <Route path='/profile' element={<Profile/>} />
         <Route path='/privacy-policy' element={<Privacy/>} />
         <Route path='/insurance' element={<Insurance/>} />
+        <Route path="/category/:type" element={<Category />} />
         <Route path='/my-bookings' element={<MyBookings />} />
         <Route path='/owner' element={<Layout />}>
           <Route index element={<Dashboard/>}/>
+          <Route path='settings' element={<Settings/>}/>
           <Route path='add-car' element={<AddCar/>}/>
           <Route path='manage-cars' element={<ManageCars/>}/>
           <Route path='manage-bookings' element={<ManageBookings/>}/>

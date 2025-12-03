@@ -5,21 +5,21 @@ import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
 function Navbar() {
 
-    const { setShowLogin, user, logout, isOwner, axios, setIsOwner,input,setInput } = useAppContext()
+    const { setShowLogin, user, logout, isOwner, axios, setIsOwner, input, setInput } = useAppContext()
 
     const location = useLocation()
-    
+
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
 
-    const changeRole = async ()=>{
+    const changeRole = async () => {
         try {
-            const {data} = await axios.post('/api/owner/change-role')
-            if (data.success){
+            const { data } = await axios.post('/api/owner/change-role')
+            if (data.success) {
                 setIsOwner(true)
                 toast.success(data.message)
             }
-            else{
+            else {
                 toast.error(data.message)
             }
 
@@ -43,24 +43,39 @@ function Navbar() {
         
         `}>
                 {menuLinks.map((link, index) => (
-                    <Link onClick={()=>setOpen(false)} key={index} to={link.path} >
+                    <Link onClick={() => setOpen(false)} key={index} to={link.path} >
                         {link.name}
                     </Link>
                 ))}
 
-                <div onClick={()=>navigate('/cars')} className={`hidden duration-200 ${(location.pathname === '/cars' && input !== '') ? '-translate-y-20 hidden ':''} lg:flex items-center text-sm gap-2 border
-            border-borderColor px-3 rounded-full max-w-56`}>
-                    <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" className='py-1.5 w-full bg-transparent
-                outline-none placeholder-gray-500' placeholder='Search products' />
-                    <img src={assets.search_icon} alt="search" />
-                </div>
-
                 <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
                     {isOwner && (
-    <Link to="/owner">Dashboard</Link>
-)}
-                    <button onClick={() => { user ? logout() : setShowLogin(true) }} className='cursor-pointer px-8 py-2 bg-primary
-                hover:bg-primary-dull transition-all text-white rounded-lg'>{user? 'Loggout' : 'Login'}</button>
+                        <Link to="/owner">Dashboard</Link>
+                    )}
+
+
+                    <div>
+                        <div className="relative inline-block group">
+                            <button
+                                onClick={() => { user ? navigate('/profile') : toast.error('please login') }}
+                                className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition-all text-white rounded-lg"
+                            >
+                                Profile
+                            </button>
+
+                            <div
+                                className="absolute left-0 w-full sm:opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto"
+                            >
+                                <button
+                                    onClick={() => { user ? logout() : setShowLogin(true) }}
+                                    className="mt-2 w-full bg-primary hover:bg-primary-dull text-white rounded-lg py-2"
+                                >
+                                    {user ? 'Logout' : 'Login'}
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 

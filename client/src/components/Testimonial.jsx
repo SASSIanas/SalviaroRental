@@ -80,7 +80,7 @@ const Testimonial = () => {
                 toast.success('Testimonial added successfully');
                 setNewTestimonial({
                     testimonial: '',
-                    rating: 5,
+                    rating: 1,
                 });
                 setShowAddForm(false);
                 fetchTestimonials();
@@ -173,61 +173,68 @@ const Testimonial = () => {
 
                         <form onSubmit={handleAddTestimonial} className="space-y-4">
 
-                            <div>
-                                <div className='relative'>
-                                    <div className='group relative'>
-                                                    <label htmlFor="image">
-                                                        <img src={image ? URL.createObjectURL(image) : user?.image ||
-                                                            assets.testimonial_image_1
-                                                        } alt="" className='h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto'/>
-                                                        <input type="file" id='image' accept='image/*' hidden onChange={e => setImage(e.target.files[0])} />
-                                                        <div className='absolute h-9 md:h-14 w-9 md:w-14 mx-auto  hidden top-0 right-0 left-0 bottom-0
-                                                bg-black/10 rounded-full group-hover:flex items-center justify-center cursor-pointer'>
-                                                            <img src={assets.edit_icon} alt="" />
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                {image && (
-                                                    <button className='absolute top-0 right-0 flex p-2 gap-1 bg-primary/10
-                                                    text-primary cursor-pointer' onClick={updateImage}>
-                                                        Save <img src={assets.check_icon} width={13} alt=""  />
-                                                    </button>
-                                                )}
-                                </div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Rating
-                                </label>
-                                <div className="flex space-x-1">
-                                    {Array(5).fill(0).map((_, index) => {
-                                        const starValue = index + 1;
-                                        const isFilled = starValue <= newTestimonial.rating;
-                                        
-                                        return (
-                                            <button
-                                                key={index}
-                                                type="button"
-                                                onClick={() => setNewTestimonial(prev => ({ 
-                                                    ...prev, 
-                                                    rating: starValue 
-                                                }))}
-                                                className="transition-transform hover:scale-110"
-                                            >
-                                                <img 
-                                                    className='w-6' 
-                                                    src={assets.star_icon} 
-                                                    alt="star-icon"
-                                                    style={{ 
-                                                        filter: isFilled ? 'none' : 'grayscale(100%) opacity(0.3)'
-                                                    }}
-                                                />
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                                <p className="text-sm text-gray-500 mt-1">
-                                    {newTestimonial.rating} out of 5 stars
-                                </p>
-                            </div>
+        <div>
+  <div className='relative'>
+    <div className='group relative'>
+      <label htmlFor="image">
+        <img 
+          src={image ? URL.createObjectURL(image) : user?.image || assets.testimonial_image_1} 
+          alt="" 
+          className='h-24 w-24 rounded-full object-cover mx-auto border-2 border-gray-200'
+        />
+        <input 
+          type="file" 
+          id='image' 
+          accept='image/*' 
+          hidden 
+          onChange={e => setImage(e.target.files[0])} 
+        />
+        <div className='absolute h-24 w-24 top-0 left-0 right-0 bottom-0 mx-auto bg-black/10 rounded-full group-hover:flex items-center justify-center cursor-pointer hidden'>
+          <img src={assets.edit_icon} alt="" className='h-5 w-5'/>
+        </div>
+      </label>
+    </div>
+
+    {image && (
+      <button 
+        className='absolute top-0 right-0 flex p-2 gap-1 bg-primary/10 text-primary cursor-pointer'
+        onClick={updateImage}
+      >
+        Save <img src={assets.check_icon} width={13} alt="" />
+      </button>
+    )}
+  </div>
+
+  <label className="block text-sm font-medium text-gray-700 mb-1">
+    Rating
+  </label>
+  <div className="flex space-x-1">
+    {Array(5).fill(0).map((_, index) => {
+      const starValue = index + 1;
+      const isFilled = starValue <= newTestimonial.rating;
+      
+      return (
+        <button
+          key={index}
+          type="button"
+          onClick={() => setNewTestimonial(prev => ({ ...prev, rating: starValue }))}
+          className="transition-transform hover:scale-110"
+        >
+          <img 
+            className='w-6' 
+            src={assets.star_icon} 
+            alt="star-icon"
+            style={{ filter: isFilled ? 'none' : 'grayscale(100%) opacity(0.3)' }}
+          />
+        </button>
+      );
+    })}
+  </div>
+  <p className="text-sm text-gray-500 mt-1">
+    {newTestimonial.rating} out of 5 stars
+  </p>
+</div>
+
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -274,16 +281,17 @@ const Testimonial = () => {
 
                     return (
                         <div key={testimonial._id || index} className="bg-white p-6 rounded-xl shadow-lg hover:-translate-y-1 transition-all duration-500">
-                            <div className="flex items-center gap-3">
-                                <img 
-                                    className="w-12 h-12 rounded-full" 
-                                    src={getProfileImage(testimonial)} 
-                                    alt={testimonial.name} 
-                                />
-                                <div>
-                                    <p className="text-xl">{testimonial.name}</p>
-                                </div>
-                            </div>
+     <div className="flex items-center gap-3">
+  <img 
+    className="w-12 h-12 rounded-full object-cover border-2 border-gray-200" 
+    src={getProfileImage(testimonial)} 
+    alt={testimonial.name} 
+  />
+  <div>
+    <p className="text-xl">{testimonial.name}</p>
+  </div>
+</div>
+
                             <div className="flex items-center gap-1 mt-4">
                                 {renderStars(testimonial.rating)}
                             </div>

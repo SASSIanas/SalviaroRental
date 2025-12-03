@@ -37,17 +37,17 @@ export const addTestimonial = async (req, res) => {
         const { testimonial, rating, } = req.body;
 
         if (!testimonial || !rating ) {
-            return res.json({ success: false, message: 'جميع الحقول مطلوبة' });
+            return res.json({ success: false, message: 'All fields are required' });
         }
 
         // التأكد من أن المستخدم مسجل دخول
         if (!req.user) {
-            return res.json({ success: false, message: 'يجب تسجيل الدخول أولاً' });
+            return res.json({ success: false, message: 'You must log in first' });
         }
 
         const user = await User.findById(req.user._id);
         if (!user) {
-            return res.json({ success: false, message: 'المستخدم غير موجود' });
+            return res.json({ success: false, message: 'User not found'  });
         }
 
         const newTestimonial = await Testimonial.create({
@@ -61,7 +61,7 @@ export const addTestimonial = async (req, res) => {
 
         res.json({ 
             success: true, 
-            message: 'تم إضافة التقييم بنجاح',
+            message: 'Testimonial added successfully',
             testimonial: newTestimonial 
         });
 

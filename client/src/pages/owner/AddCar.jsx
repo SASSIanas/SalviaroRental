@@ -71,18 +71,7 @@ const AddCar = () => {
         setImage(null)
         setFeatures([])
         setNewFeature('')
-        setCar({
-          brand: '',
-          model: '',
-          year: new Date().getFullYear(),
-          pricePerDay: 0,
-          category: '',
-          transmission: '',
-          fuel_type: '',
-          seating_capacity: 4,
-          location: '',
-          description: '',
-        })
+  
       } else {
         toast.error(data.message)
       }
@@ -95,27 +84,27 @@ const AddCar = () => {
 
   return (
     <div className='px-4 py-10 md:py-10 flex-1'>
-      <Title 
-        title='Add New Car' 
+      <Title
+        title='Add New Car'
         subTitle='Fill in details to list a new car for booking, including pricing, availability, and car specifications.'
       />
 
       <form onSubmit={onSubmitHandler} className='flex flex-col gap-5 text-gray-500 text-sm mt-6 max-w-xl'>
-        
+
         {/* Car Image Upload */}
         <div className='flex items-center gap-2 w-full'>
           <label htmlFor="car-image" className='cursor-pointer'>
-            <img 
-              src={image ? URL.createObjectURL(image) : assets.upload_icon} 
-              alt="Car" 
-              className='h-20 w-20 object-cover rounded-lg border border-borderColor' 
+            <img
+              src={image ? URL.createObjectURL(image) : assets.upload_icon}
+              alt="Car"
+              className='h-20 w-20 object-cover rounded-lg border border-borderColor'
             />
-            <input 
-              type="file" 
-              id='car-image' 
-              accept='image/*' 
-              hidden 
-              onChange={e => setImage(e.target.files[0])} 
+            <input
+              type="file"
+              id='car-image'
+              accept='image/*'
+              hidden
+              onChange={e => setImage(e.target.files[0])}
             />
           </label>
           <div>
@@ -128,24 +117,24 @@ const AddCar = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
           <div className='flex flex-col w-full'>
             <label className='font-medium'>Brand *</label>
-            <input 
-              type="text" 
-              placeholder='e.g. BMW, Mercedes, Audi...' 
+            <input
+              type="text"
+              placeholder='e.g. BMW, Mercedes, Audi...'
               required
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
-              value={car.brand} 
-              onChange={e => setCar({ ...car, brand: e.target.value })} 
+              value={car.brand}
+              onChange={e => setCar({ ...car, brand: e.target.value })}
             />
           </div>
           <div className='flex flex-col w-full'>
             <label className='font-medium'>Model *</label>
-            <input 
-              type="text" 
-              placeholder='e.g. X5, E-class, A4...' 
+            <input
+              type="text"
+              placeholder='e.g. X5, E-class, A4...'
               required
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
-              value={car.model} 
-              onChange={e => setCar({ ...car, model: e.target.value })} 
+              value={car.model}
+              onChange={e => setCar({ ...car, model: e.target.value })}
             />
           </div>
         </div>
@@ -154,47 +143,72 @@ const AddCar = () => {
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
           <div className='flex flex-col w-full'>
             <label className='font-medium'>Year *</label>
-            <input 
-              type="number" 
-              placeholder='2024' 
+            <input
+              type="number"
+              placeholder='2024'
               min="1990"
               max={new Date().getFullYear() + 1}
               required
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
-              value={car.year} 
-              onChange={e => setCar({ ...car, year: parseInt(e.target.value) })} 
+              value={car.year}
+              onChange={e => setCar({ ...car, year: parseInt(e.target.value) })}
             />
           </div>
           <div className='flex flex-col w-full'>
             <label className='font-medium'>Daily Price ({currency}) *</label>
-            <input 
-              type="number" 
-              placeholder='100' 
+            <input
+              type="number"
+              placeholder='100'
               min="1"
               required
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
-              value={car.pricePerDay} 
-              onChange={e => setCar({ ...car, pricePerDay: parseInt(e.target.value) })} 
+              value={car.pricePerDay}
+              onChange={e => setCar({ ...car, pricePerDay: parseInt(e.target.value) })}
             />
           </div>
           <div className='flex flex-col w-full'>
             <label className='font-medium'>Category *</label>
-            <select 
+            <select
               onChange={e => setCar({ ...car, category: e.target.value })}
-              value={car.category} 
+              value={car.category}
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
               required
             >
-              <option value="">Select a category</option>
-              <option value="Sedan">Sedan</option>
-              <option value="SUV">SUV</option>
-              <option value="Hatchback">Hatchback</option>
-              <option value="Coupe">Coupe</option>
-              <option value="Convertible">Convertible</option>
-              <option value="Van">Van</option>
-              <option value="Pickup">Pickup Truck</option>
-              <option value="Luxury">Luxury</option>
-              <option value="Sports">Sports Car</option>
+ <optgroup label="Cars">
+    <option value="Car-Sedan">Sedan</option>
+    <option value="Car-SUV">SUV</option>
+    <option value="Car-Hatchback">Hatchback</option>
+    <option value="Car-Coupe">Coupe</option>
+    <option value="Car-Convertible">Convertible</option>
+    <option value="Car-Van">Van</option>
+    <option value="Car-Pickup">Pickup Truck</option>
+    <option value="Car-Luxury">Luxury</option>
+    <option value="Car-Sports">Sports</option>
+  </optgroup>
+
+  <optgroup label="Motorcycles">
+    <option value="Motorcycle-Sport">Sport</option>
+    <option value="Motorcycle-Cruiser">Cruiser</option>
+    <option value="Motorcycle-Touring">Touring</option>
+    <option value="Motorcycle-Dirt">Dirt Bike</option>
+    <option value="Motorcycle-Scooter">Scooter</option>
+    <option value="Motorcycle-Adventure">Adventure</option>
+  </optgroup>
+
+  <optgroup label="Boats & Watercraft">
+    <option value="Boat-Yacht">Yacht</option>
+    <option value="Boat-Jetski">Jetski</option>
+    <option value="Boat-Speedboat">Speedboat</option>
+    <option value="Boat-Fishing">Fishing Boat</option>
+    <option value="Boat-Sailing">Sailing Boat</option>
+  </optgroup>
+
+  <optgroup label="Airplanes">
+    <option value="Airplane-PrivateJet">Private Jet</option>
+    <option value="Airplane-Helicopter">Helicopter</option>
+    <option value="Airplane-Charter">Charter Plane</option>
+    <option value="Airplane-BusinessJet">Business Jet</option>
+  </optgroup>
             </select>
           </div>
         </div>
@@ -203,9 +217,9 @@ const AddCar = () => {
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
           <div className='flex flex-col w-full'>
             <label className='font-medium'>Transmission *</label>
-            <select 
+            <select
               onChange={e => setCar({ ...car, transmission: e.target.value })}
-              value={car.transmission} 
+              value={car.transmission}
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
               required
             >
@@ -218,9 +232,9 @@ const AddCar = () => {
           </div>
           <div className='flex flex-col w-full'>
             <label className='font-medium'>Fuel Type *</label>
-            <select 
+            <select
               onChange={e => setCar({ ...car, fuel_type: e.target.value })}
-              value={car.fuel_type} 
+              value={car.fuel_type}
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
               required
             >
@@ -234,15 +248,15 @@ const AddCar = () => {
           </div>
           <div className='flex flex-col w-full'>
             <label className='font-medium'>Seating Capacity *</label>
-            <input 
-              type="number" 
-              placeholder='4' 
+            <input
+              type="number"
+              placeholder='4'
               min="1"
               max="12"
               required
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
-              value={car.seating_capacity} 
-              onChange={e => setCar({ ...car, seating_capacity: parseInt(e.target.value) })} 
+              value={car.seating_capacity}
+              onChange={e => setCar({ ...car, seating_capacity: parseInt(e.target.value) })}
             />
           </div>
         </div>
@@ -251,15 +265,15 @@ const AddCar = () => {
         <div className='flex flex-col w-full'>
           <label className='font-medium'>Features</label>
           <div className='flex gap-2 mt-1'>
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="Add feature (e.g. Sunroof, GPS, Heated Seats...)"
               className='px-3 py-2 border border-borderColor rounded-md outline-none focus:border-primary transition-colors flex-1'
               value={newFeature}
               onChange={e => setNewFeature(e.target.value)}
               onKeyPress={e => e.key === 'Enter' && (e.preventDefault(), addFeature())}
             />
-            <button 
+            <button
               type="button"
               onClick={addFeature}
               className='px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors'
@@ -271,7 +285,7 @@ const AddCar = () => {
             {features.map((feature, index) => (
               <div key={index} className='flex items-center gap-1 bg-primary/10 text-primary px-3 py-1 rounded-full'>
                 <span className='text-sm'>{feature}</span>
-                <button 
+                <button
                   type="button"
                   onClick={() => removeFeature(feature)}
                   className='text-primary hover:text-red-500 text-lg font-bold ml-1'
@@ -286,13 +300,32 @@ const AddCar = () => {
         {/* Car Location */}
         <div className='flex flex-col w-full'>
           <label className='font-medium'>Location *</label>
-          <select 
+          <select
             onChange={e => setCar({ ...car, location: e.target.value })}
-            value={car.location} 
+            value={car.location}
             className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
             required
           >
             <option value="">Select a Location</option>
+
+            {/* matarat/dawlya */}
+
+            <option value="Casablanca Mohammed V International">Casablanca Mohammed V International</option>
+            <option value="Marrakech Menara">Marrakech Menara</option>
+            <option value="Agadir Al Massira">Agadir Al Massira</option>
+            <option value="Fès Saïss">Fès Saïss</option>
+            <option value="Tangier Ibn Battouta">Tangier Ibn Battouta</option>
+            <option value="Rabat Salé">Rabat Salé</option>
+            <option value="Oujda Angad">Oujda Angad</option>
+            <option value="Nador Al Aroui">Nador Al Aroui</option>
+            <option value="Laayoune Hassan I">Laayoune Hassan I</option>
+            <option value="Dakhla">Dakhla</option>
+            <option value="Essaouira Mogador">Essaouira Mogador</option>
+            <option value="Ouarzazate">Ouarzazate</option>
+            <option value="Errachidia Moulay Ali Cherif">Errachidia Moulay Ali Cherif</option>
+            
+            {/* modon */}
+
             <option value="Agadir">Agadir</option>
             <option value="Ahfir">Ahfir</option>
             <option value="Aïn Harrouda">Aïn Harrouda</option>
@@ -368,23 +401,22 @@ const AddCar = () => {
         {/* Car Description */}
         <div className='flex flex-col w-full'>
           <label className='font-medium'>Description *</label>
-          <textarea 
-            rows={5} 
-            placeholder='e.g. A luxurious SUV with a spacious interior and a powerful engine. Perfect for family trips and long journeys...' 
+          <textarea
+            rows={5}
+            placeholder='e.g. A luxurious SUV with a spacious interior and a powerful engine. Perfect for family trips and long journeys...'
             required
             className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors resize-vertical'
-            value={car.description} 
-            onChange={e => setCar({ ...car, description: e.target.value })} 
+            value={car.description}
+            onChange={e => setCar({ ...car, description: e.target.value })}
           ></textarea>
         </div>
 
         {/* Submit Button */}
-        <button 
+        <button
           type="submit"
           disabled={isLoading}
-          className={`flex items-center gap-2 px-6 py-3 mt-4 bg-primary text-white rounded-md font-medium w-max cursor-pointer transition-colors ${
-            isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary-dull'
-          }`}
+          className={`flex items-center gap-2 px-6 py-3 mt-4 bg-primary text-white rounded-md font-medium w-max cursor-pointer transition-colors ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary-dull'
+            }`}
         >
           <img src={assets.tick_icon} alt="" className='h-4' />
           {isLoading ? 'Adding Car...' : 'List Your Car'}
