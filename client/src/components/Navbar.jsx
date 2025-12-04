@@ -58,13 +58,19 @@ function Navbar() {
                         <div className="relative inline-block group">
                             <button
                                 onClick={() => { user ? navigate('/profile') : toast.error('please login') }}
-                                className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition-all text-white rounded-lg"
+                                className="cursor-pointer w-full px-8 py-2 bg-primary  hover:bg-primary-dull transition-all text-white rounded-lg"
                             >
                                 Profile
                             </button>
+                            <button
+                                    onClick={() => { user ? logout() : setShowLogin(true) }}
+                                    className="mt-2 w-full bg-primary sm:hidden hover:bg-primary-dull text-white rounded-lg py-2"
+                                >
+                                    {user ? 'Logout' : 'Login'}
+                            </button>
 
                             <div
-                                className="absolute left-0 w-full sm:opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto"
+                                className="absolute hidden sm:block left-0 w-full sm:opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto"
                             >
                                 <button
                                     onClick={() => { user ? logout() : setShowLogin(true) }}
