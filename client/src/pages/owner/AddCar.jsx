@@ -69,8 +69,21 @@ const AddCar = () => {
       if (data.success) {
         toast.success(data.message)
         setImage(null)
+        setCar({
+          brand: '',
+          model: '',
+          year: 0,
+          pricePerDay: 0,
+          category: '',
+          transmission: '',
+          fuel_type: '',
+          seating_capacity: 0,
+          location: '',
+          description: '',
+        })
         setFeatures([])
         setNewFeature('')
+
   
       } else {
         toast.error(data.message)
@@ -171,9 +184,11 @@ const AddCar = () => {
             <select
               onChange={e => setCar({ ...car, category: e.target.value })}
               value={car.category}
+              placeholder="select car"
               className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none focus:border-primary transition-colors'
               required
             >
+              <option value="" disabled>Select a category</option>
  <optgroup label="Cars">
     <option value="Car-Sedan">Sedan</option>
     <option value="Car-SUV">SUV</option>

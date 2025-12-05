@@ -85,7 +85,7 @@ const Footer = () => {
             </div>
 
             <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
-                <p>© {new Date().getFullYear()} <a href="https://prebuiltui.com">salviaro.autos</a>. All rights reserved.</p>
+                <p>© {new Date().getFullYear()} <Link onClick={handleScrollToTop} to="/">salviaro.autos</Link>. All rights reserved.</p>
             </div>
         </div>
     )
