@@ -8,9 +8,9 @@ import {
     registerUser, 
     updateUserName, 
     updateUserPassword,
-    getUserById,      // تأكد أن هادي موجودة
-    getAllOwners,     // وهادي كمان
-    getOwnerCars      // وهادي
+    getUserById,      
+    getAllOwners,    
+    getOwnerCars     
 } from '../controllers/userController.js';
 import { protect } from '../middleware/auth.js';
 
@@ -24,9 +24,9 @@ userRouter.get('/cars', getCars)
 userRouter.put('/update-name', protect, updateUserName)
 userRouter.put('/update-password', protect, updateUserPassword)
 
-// ⚠️ تأكد أن هاد Routes موجودين
-userRouter.get('/:id', getUserById)                    // هادي خاصها تكون موجودة
-userRouter.get('/owners/all', getAllOwners)           // وهادي
-userRouter.get('/owner-cars/:ownerId', getOwnerCars)  // وهادي
+
+userRouter.get('/:id', getUserById)                   
+userRouter.get('/owners/all', getAllOwners)       
+userRouter.get('/owner-cars/:ownerId', getOwnerCars) 
 
 export default userRouter;

@@ -13,7 +13,6 @@ const generateToken = (userId)=>{
 }
 
 // register user
-// register user
 export const registerUser = async (req, res) => {
     try {
         const { name, email, password, role, rentalBusinessName, rentalAddress } = req.body
@@ -128,6 +127,9 @@ export const getCarById = async (req, res) => {
         if (!car) {
             return res.json({ success: false, message: 'Car not found' });
         }
+        if(car.isAvaliable === false) {
+            return res.json({ success: false, message: 'Car not found' });
+        }
 
         res.json({ success: true, car });
 
@@ -174,9 +176,9 @@ export const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
         
-        console.log('Fetching user with ID:', id); // Debug
+        console.log('Fetching user with ID:', id);
         
-        // تحقق إذا الID صحيح
+        
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.json({ success: false, message: 'Invalid user ID' });
         }

@@ -17,7 +17,68 @@ export const changeRoleToOwner = async (req, res) => {
     }
 }
 
-// api to list car
+
+// api to update car details
+export const updateCar = async (req, res) => {
+    try {
+        const { _id } = req.user;
+        const { carId, ...updateData } = JSON.parse(req.body.carData || '{}');
+        const imageFile = req.file;
+
+        // Find the car
+        const car = await Car.findById(carId);
+
+        // Check if car exists and belongs to the user
+        if (!car) {
+            return res.json({ success: false, message: 'Car not found' });
+        }
+
+        if (car.owner.toString() !== _id.toString()) {
+            return res.json({ success: false, message: 'Unauthorized' });
+        }
+
+        // Prepare update object
+        const updateObject = { ...updateData };
+
+        // If there's a new image, upload and update
+        if (imageFile) {
+            const fileBuffer = fs.readFileSync(imageFile.path);
+            const response = await imagekit.upload({
+                file: fileBuffer,
+                fileName: imageFile.originalname,
+                folder: '/cars'
+            });
+
+            var optimizedImageUrl = imagekit.url({
+                path: response.filePath,
+                transformation: [
+                    { width: '1280' },
+                    { quality: 'auto' },
+                    { format: 'webp' }
+                ]
+            });
+
+            updateObject.image = optimizedImageUrl;
+        }
+
+        // Update the car
+        const updatedCar = await Car.findByIdAndUpdate(
+            carId,
+            updateObject,
+            { new: true } // Return the updated document
+        );
+
+        res.json({ 
+            success: true, 
+            message: 'Car updated successfully',
+            car: updatedCar 
+        });
+
+    } catch (error) {
+        console.log(error.message);
+        res.json({ success: false, message: error.message });
+    }
+}
 
 // api to list car
 export const addCar = async (req, res) => {

@@ -26,6 +26,7 @@ import Profile from './pages/Profile'
 import Category from './pages/Category'
 import Profiles from './pages/Profiles'
 import OwnerProfile from './pages/OwnerProfile '
+import EditCar from './pages/owner/EditCar' // أضف هذا الاستيراد
 
 function App() {
   const {showLogin} = useAppContext()
@@ -45,7 +46,7 @@ function App() {
         <Route path='/about-us' element={<AboutUs/>} />
         <Route path='/contact-us' element={<ContactUs/>} />
         <Route path='/profiles' element={<Profiles />} />
-<Route path='/profiles/:ownerId' element={<OwnerProfile />} />
+        <Route path='/profiles/:ownerId' element={<OwnerProfile />} />
         <Route path='/our-goals' element={<OurGoals/>} />
         <Route path='/help-center' element={<HelpCenter/>} />
         <Route path='/terms-of-service' element={<Terms/>} />
@@ -54,12 +55,15 @@ function App() {
         <Route path='/insurance' element={<Insurance/>} />
         <Route path="/category/:type" element={<Category />} />
         <Route path='/my-bookings' element={<MyBookings />} />
+        
+        {/* Owner Routes */}
         <Route path='/owner' element={<Layout />}>
           <Route index element={<Dashboard/>}/>
           <Route path='settings' element={<Settings/>}/>
           <Route path='add-car' element={<AddCar/>}/>
           <Route path='manage-cars' element={<ManageCars/>}/>
           <Route path='manage-bookings' element={<ManageBookings/>}/>
+          <Route path='edit-car/:carId' element={<EditCar/>}/> {/* أضف هذا Route */}
         </Route>
       </Routes>
       

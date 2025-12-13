@@ -35,13 +35,14 @@ const CarDetails = () => {
           if (ownerResponse.data.success) {
             setOwner(ownerResponse.data.user)
           }
+          
         }
       } else {
-        toast.error('Failed to load car details')
+        toast.error(data.message)
       }
     } catch (error) {
       console.log('Error fetching car details:', error)
-      toast.error('Error loading car details')
+      toast.error(data.message)
     } finally {
       setLoading(false)
     }
