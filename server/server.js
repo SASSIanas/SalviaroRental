@@ -8,7 +8,7 @@ import bookingRouer from './routes/bookingRoutes.js';
 import contactRouter from './routes/contactRouter.js';
 // server.js (إضافة هذا السطر مع باقي الـ imports)
 import testimonialRouter from './routes/testimonialRoutes.js';
-//fix dns 
+//fix dns problem
 import dns from 'node:dns/promises'
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
